@@ -3,7 +3,9 @@
   "version": "1.0.0",
   "description": "基于single-spa-vue之上改写后 适用于single-spa-mfe-main的 子应用生命周期库",
   "main": "dist/index.js",
-  "scripts": {},
+  "scripts": {
+    "build":"webpack --config webpack.config.js"
+  },
   "keywords": [
     "microfrontends",
     "single",

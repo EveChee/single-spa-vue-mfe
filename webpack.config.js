@@ -16,7 +16,7 @@ module.exports = {
     extensions: ['.ts', '.tsx'] ,
     modules: ['src']
   } ,
-  externals: ['single-spa'],
+  externals: ['systemjs-webpack-interop', 'vue'],
   devtool: 'source-map',// 打包出的js文件是否生成map文件（方便浏览器调试）
   // mode: 'production',
   mode: 'development',
