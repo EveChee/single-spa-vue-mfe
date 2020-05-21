@@ -18,11 +18,10 @@
     "strict": true,
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
-    "moduleResolution": "node"
+    "moduleResolution": "node",
+    "types": ["jest"]
   },
   "exclude": ["node_modules"],
-  "files": [
-    "src/index.ts",
-  ]
+  "files": ["src/index.ts"]
   // "include": ["src/**/*"]
 }

@@ -4,7 +4,8 @@
   "description": "基于single-spa-vue之上改写后 适用于single-spa-mfe-main的 子应用生命周期库",
   "main": "dist/index.js",
   "scripts": {
-    "build":"webpack --config webpack.config.js"
+    "build": "webpack --config webpack.config.js",
+    "test": "jest"
   },
   "keywords": [
     "microfrontends",
@@ -28,7 +29,9 @@
     "vue": "^2.6.11"
   },
   "devDependencies": {
+    "@types/jest": "^25.2.3",
     "clean-webpack-plugin": "^3.0.0",
+    "ts-jest": "^26.0.0",
     "ts-loader": "^7.0.4"
   }
 }

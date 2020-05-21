@@ -8,5 +8,11 @@
 import { setPublicPath } from 'systemjs-webpack-interop';
 
 export function setPath(appName:string){
-  (<any>window).__STL_S_SPA__&&setPublicPath(appName)
+  if((<any>window).__SINGLE_SPA_MFE__){
+    try{
+      setPublicPath(appName)
+    } catch(e){
+      console.log(e)
+    }
+  }
 }

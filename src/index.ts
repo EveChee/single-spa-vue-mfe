@@ -3,7 +3,7 @@
  * @Version: 0.1
  * @Author: EveChee
  * @Date: 2020-05-20 17:02:09
- * @LastEditTime: 2020-05-20 17:02:22
+ * @LastEditTime: 2020-05-21 11:39:02
  */
 export { setPath } from './set-public-path'
 import { VueConstructor } from 'vue'
