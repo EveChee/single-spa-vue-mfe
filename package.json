@@ -1,6 +1,6 @@
 {
   "name": "single-spa-vue-mfe",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "基于single-spa-vue之上改写后 适用于single-spa-mfe-main的 子应用生命周期库",
   "main": "dist/index.js",
   "scripts": {
@@ -25,7 +25,6 @@
   "repository": "https://github.com/EveChee/single-spa-vue-mfe",
   "bugs": "https://github.com/EveChee/single-spa-vue-mfe/issues",
   "dependencies": {
-    "systemjs-webpack-interop": "^2.1.0",
     "vue": "^2.6.11"
   },
   "devDependencies": {

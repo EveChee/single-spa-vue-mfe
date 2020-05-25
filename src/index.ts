@@ -3,9 +3,8 @@
  * @Version: 0.1
  * @Author: EveChee
  * @Date: 2020-05-20 17:02:09
- * @LastEditTime: 2020-05-21 11:39:02
+ * @LastEditTime: 2020-05-25 16:27:47
  */
-export { setPath } from './set-public-path'
 import { VueConstructor } from 'vue'
 
 /* eslint-disable */
