@@ -3,7 +3,7 @@
  * @Version: 0.1
  * @Author: EveChee
  * @Date: 2020-05-20 17:02:09
- * @LastEditTime: 2020-11-24 11:39:08
+ * @LastEditTime: 2020-11-24 16:31:23
  */
 import { VueConstructor } from 'vue'
 
@@ -63,35 +63,42 @@ function bootstrap(opts: SSpaConfig) {
 }
 
 function mount(opts: SSpaConfig, mountedInstances: any, props: any) {
-    const { keepAlive, activesApp, name } = props
+    const { keepAlive, activesApp, name, parent } = props
     let instance = mountedInstances[name]
+    const { appOptions } = opts
     let $el = opts.appOptions?.el
     if ($el) $el = document.querySelector($el)
+    const $parent = parent || document.body
+    console.log(name, '初始化了')
     return Promise.resolve().then(() => {
         if (!instance || ($el && $el.innerHTML === '')) {
             // 初次访问注册
             instance = {}
-            const { appOptions } = opts
             let domEl
-            if (appOptions.el) {
-                if (typeof appOptions.el === 'string') {
-                    if (!$el) {
-                        // 如果没有这个容器元素
-                        domEl = createElement(appOptions.el.substr(1))
-                        document.body.appendChild(domEl)
-                    }
-                } else {
-                    domEl = appOptions.el
-                }
-            } else {
+            if (!appOptions.el) {
+                // 没有指定子应用容器
                 const htmlId = `single-spa-application:${name}`
                 // CSS.escape的文档（需考虑兼容性）：https://developer.mozilla.org/zh-CN/docs/Web/API/CSS/escape
                 appOptions.el = `#${CSS.escape(htmlId)}`
                 domEl = document.getElementById(htmlId)
-                !domEl && document.body.appendChild(createElement(htmlId))
+                if (!domEl) {
+                    // 未获取到元素的情况
+                    domEl = createElement(htmlId)
+                    $parent.appendChild(domEl)
+                }
+            } else {
+                if (typeof appOptions.el === 'string') {
+                    // 如果没有这个容器元素
+                    domEl = !$el ? createElement(appOptions.el.substr(1)) : $el
+                } else {
+                    // 直接传dom的情况
+                    domEl = appOptions.el
+                }
+                $parent.appendChild(domEl)
             }
 
-            instance.domEl = domEl
+            instance.domId = appOptions.el
+
             if (
                 !appOptions.render &&
                 !appOptions.template &&
@@ -119,7 +126,6 @@ function mount(opts: SSpaConfig, mountedInstances: any, props: any) {
             // 二次直接展示
             instance.vueInstance.$el.style.display = 'block'
         }
-
         return instance.vueInstance
     })
 }
@@ -148,11 +154,13 @@ function unmount(opts: SSpaConfig, mountedInstances: any, props: any) {
             instance.vueInstance.$destroy()
             instance.vueInstance.$el.innerHTML = ''
             delete instance.vueInstance
-            if (instance.domEl) {
-                instance.domEl.innerHTML = ''
-                instance.domEl.parentNode.removeChild(instance.domEl)
-                delete instance.domEl
+            if (instance.domId) {
+                const domEl = document.querySelector(instance.domId)
+                domEl.innerHTML = ''
+                domEl.parentNode.removeChild(domEl)
+                delete instance.domId
             }
+            mountedInstances[name] = null
         }
         return instance
     })
