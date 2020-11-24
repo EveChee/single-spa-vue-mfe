@@ -11,6 +11,4 @@ tsconfig.json
 note.md
 *.log
 /doc/
-/src/
-/test/
 webpack.config.js
